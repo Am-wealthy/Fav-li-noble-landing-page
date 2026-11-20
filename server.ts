@@ -27,6 +27,11 @@ async function startServer() {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+  // Google Search Console Verification File
+  app.get('/google2e15421180ca8be8.html', (_req, res) => {
+    res.type('text/html').send('google-site-verification: google2e15421180ca8be8.html\n');
+  });
+
   // API Health Check
   app.get('/api/health', (_req, res) => {
     res.json({
