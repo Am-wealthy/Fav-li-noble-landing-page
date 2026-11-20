@@ -108,9 +108,9 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
         <div className="flex items-center gap-3 bg-slate-950/80 px-4 py-2 rounded-2xl border border-cyan-500/30 backdrop-blur-md shadow-[0_0_25px_rgba(6,182,212,0.3)] animate-fadeIn">
           <Logo className="w-9 h-9" showPulse={true} />
           <div className="text-left">
-            <h2 className="font-unbounded font-black text-xs sm:text-sm text-white tracking-wider uppercase">
+            <span className="block font-unbounded font-black text-xs sm:text-sm text-white tracking-wider uppercase">
               FAV LI$ <span className="text-cyan-400">NOBLE</span>
-            </h2>
+            </span>
             <p className="text-[9px] font-mono text-cyan-300/80 uppercase tracking-widest">
               QUANTUM SYSTEM // ONLINE
             </p>
@@ -176,12 +176,12 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
             </div>
 
             {/* Compact Brand Title Perfectly Fitted Inside Circle */}
-            <h1 className="font-unbounded font-black text-xs sm:text-sm text-white tracking-wider uppercase leading-tight drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]">
+            <span className="block font-unbounded font-black text-xs sm:text-sm text-white tracking-wider uppercase leading-tight drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]">
               FAV LI$<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300">
                 NOBLE
               </span>
-            </h1>
+            </span>
 
             {/* Holding Action Feedback */}
             <div className="mt-1.5">

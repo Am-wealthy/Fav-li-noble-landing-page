@@ -39,8 +39,8 @@ export const Footer: React.FC<FooterProps> = ({
                 </span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-1 max-w-md">
-              MANUFACTURING PHYSICAL QUANTUM SUBSTRATES AND HIGH-PERFORMANCE WEBSITES FOR THE NEXT EPOCH OF INTELLIGENCE.
+            <p className="text-xs text-slate-400 mt-2 max-w-md">
+              Fav Lis Noble Tech Company — Engineering custom iOS &amp; Android mobile apps, scalable web applications, modern websites, and AI automation solutions.
             </p>
           </div>
 
@@ -88,8 +88,8 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Navigation Page View Links */}
         {onSelectPage && (
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2 text-xs font-mono font-bold uppercase">
-            <span className="text-slate-500 text-[10px] tracking-widest mr-2">NAVIGATION //</span>
+          <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2 text-xs font-mono font-bold uppercase">
+            <span className="text-slate-500 text-[10px] tracking-widest mr-2">NAVIGATION</span>
             <button
               onClick={() => { playClickSound(); onSelectPage('landing'); }}
               className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-cyan-300 border border-white/10 transition-all"
@@ -114,14 +114,14 @@ export const Footer: React.FC<FooterProps> = ({
             >
               QUANTUM MATRIX LAB
             </button>
-          </div>
+          </nav>
         )}
 
         {/* Bottom Links Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center sm:text-left pt-4 border-t border-white/5">
           <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
             <Shield size={14} className="text-cyan-400 shrink-0" />
-            <span>&copy; {new Date().getFullYear()} FAV LI$ NOBLE TECH COMPANY. ALL RIGHTS RESERVED.</span>
+            <span>&copy; {new Date().getFullYear()} FAV LIS NOBLE TECH COMPANY. ALL RIGHTS RESERVED.</span>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center text-[11px] sm:text-xs">

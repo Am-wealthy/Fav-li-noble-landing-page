@@ -23,20 +23,20 @@ export const AboutPage: React.FC<AboutPageProps> = ({
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 font-space">
       
       {/* Hero Header */}
-      <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-[#080d1a]/90 via-[#030508]/90 to-[#030508] border border-cyan-500/30 text-center space-y-6 relative overflow-hidden shadow-[0_0_80px_rgba(6,182,212,0.15)]">
+      <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-[#080d1a]/90 via-[#030508]/90 to-[#030508] border border-cyan-500/30 text-center space-y-6 relative overflow-hidden shadow-[0_0_80px_rgba(6,182,212,0.15)]">
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 text-xs font-mono tracking-widest uppercase">
           <Shield size={14} className="text-cyan-400 animate-pulse" />
-          <span>ABOUT FAV LI$ NOBLE TECH CO. // COMPANY DIRECTIVE</span>
+          <span>ABOUT FAV LIS NOBLE TECH COMPANY</span>
         </div>
 
         <h1 className="font-unbounded font-black text-3xl sm:text-5xl text-white tracking-wider uppercase leading-tight">
-          THE NOBLE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">QUANTUM STANDARD</span>
+          FAV LIS NOBLE TECH COMPANY <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">QUANTUM STANDARD</span>
         </h1>
 
         <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
+          At Fav Lis Noble Tech Company, we engineer mobile applications for iOS and Android, custom web applications, modern websites, and artificial intelligence automation solutions designed to solve real-world business problems and drive measurable growth.
         </p>
 
         {/* Quick Metrics Bar */}
@@ -62,7 +62,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             <div className="text-[10px] text-slate-400">Zero-point response</div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Manifesto Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
@@ -78,7 +78,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             </h2>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
+              At Fav Lis Noble Tech Company, we build custom mobile apps, scalable web applications, and AI-powered automation systems designed to solve real-world problems and accelerate digital transformation.
             </p>
 
             <div className="space-y-3 pt-2 text-xs text-slate-200">
@@ -132,7 +132,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-start gap-4">
                 <img
                   src={nobleCodesImg}
-                  alt="Noble Codes"
+                  alt="Noble Codes, Chief Quantum Architect and AI Systems Engineer at Fav Lis Noble Tech Company"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
@@ -151,7 +151,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-start gap-4">
                 <img
                   src={lishanNobleImg}
-                  alt="Lady Lishan Noble"
+                  alt="Lady Lishan Noble, VP of Global Cloud Infrastructure at Fav Lis Noble Tech Company"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
@@ -170,7 +170,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-start gap-4">
                 <img
                   src={jaxenDollarImg}
-                  alt="Jaxen $"
+                  alt="Jaxen, Head of Mobile App, Web Application, and Frontend Labs at Fav Lis Noble Tech Company"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
@@ -200,7 +200,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       </section>
 
       {/* Why Choose Us */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#080c16] border border-white/10 space-y-6">
+      <section className="p-6 sm:p-8 rounded-3xl bg-[#080c16] border border-white/10 space-y-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider">OUR CORE VALUES</span>
@@ -230,7 +230,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
     </div>
   );

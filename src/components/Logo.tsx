@@ -37,7 +37,7 @@ export const Logo: React.FC<LogoProps> = ({
       {!hasError ? (
         <img
           src={sources[imgIndex]}
-          alt="Fav Li$ Noble Logo"
+          alt="Fav Lis Noble Tech Company official logo for mobile app, web, and AI development"
           onError={handleError}
           loading="eager"
           decoding="async"

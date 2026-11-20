@@ -64,9 +64,9 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             <Logo className="w-10 h-10 sm:w-11 sm:h-11 cursor-pointer" showPulse={true} />
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
-                <h1 className="font-unbounded font-black text-xs sm:text-sm md:text-base tracking-wider text-white uppercase whitespace-nowrap">
+                <span aria-label="Fav Lis Noble Tech Company" className="font-unbounded font-black text-xs sm:text-sm md:text-base tracking-wider text-white uppercase whitespace-nowrap">
                   FAV LI$ <span className="text-cyan-400">NOBLE</span>
-                </h1>
+                </span>
                 <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-space font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 rounded">
                   TECH CO.
                 </span>
@@ -80,7 +80,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         </div>
 
         {/* Page Switcher Navigation Tabs */}
-        <div className="w-full md:w-auto flex items-center justify-center p-1 rounded-2xl bg-black/70 border border-white/10 text-[11px] sm:text-xs font-space overflow-x-auto gap-0.5">
+        <nav aria-label="Primary navigation" className="w-full md:w-auto flex items-center justify-center p-1 rounded-2xl bg-black/70 border border-white/10 text-[11px] sm:text-xs font-space overflow-x-auto gap-0.5">
           <button
             onClick={() => onSelectPage('landing')}
             className={`flex-1 sm:flex-none px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold uppercase transition-all whitespace-nowrap ${
@@ -121,7 +121,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           >
             MATRIX LAB
           </button>
-        </div>
+        </nav>
 
       </div>
     </header>
