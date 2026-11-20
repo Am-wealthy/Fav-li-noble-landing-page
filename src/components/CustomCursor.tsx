@@ -1,16 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const CustomCursor: React.FC = () => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [ringPosition, setRingPosition] = useState({ x: -100, y: -100 });
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  
+  const posRef = useRef({ x: -100, y: -100 });
+  const ringPosRef = useRef({ x: -100, y: -100 });
+  const isHoveredRef = useRef(false);
+  const isClickedRef = useRef(false);
+  const lastClassHoverRef = useRef<boolean | null>(null);
+
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    // Disable custom cursor on touch/mobile devices
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      setIsTouch(true);
+      return;
+    }
+
     const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Check if target is interactive
+      posRef.current.x = e.clientX;
+      posRef.current.y = e.clientY;
+
       const target = e.target as HTMLElement;
       if (
         target &&
@@ -21,64 +33,82 @@ export const CustomCursor: React.FC = () => {
           target.closest('button') ||
           target.getAttribute('role') === 'button')
       ) {
-        setIsHovered(true);
+        isHoveredRef.current = true;
       } else {
-        setIsHovered(false);
+        isHoveredRef.current = false;
       }
     };
 
-    const onMouseDown = () => setIsClicked(true);
-    const onMouseUp = () => setIsClicked(false);
+    const onMouseDown = () => {
+      isClickedRef.current = true;
+    };
+    const onMouseUp = () => {
+      isClickedRef.current = false;
+    };
 
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('mousedown', onMouseDown, { passive: true });
+    window.addEventListener('mouseup', onMouseUp, { passive: true });
+
+    let animId: number;
+    const animate = () => {
+      animId = requestAnimationFrame(animate);
+
+      if (document.hidden) return;
+
+      // Interpolate ring position smoothly
+      ringPosRef.current.x += (posRef.current.x - ringPosRef.current.x) * 0.25;
+      ringPosRef.current.y += (posRef.current.y - ringPosRef.current.y) * 0.25;
+
+      const scaleDot = isClickedRef.current ? 0.6 : isHoveredRef.current ? 1.5 : 1;
+      const scaleRing = isClickedRef.current ? 0.8 : isHoveredRef.current ? 1.6 : 1;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${posRef.current.x}px, ${posRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleDot})`;
+      }
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringPosRef.current.x}px, ${ringPosRef.current.y}px, 0) translate(-50%, -50%) scale(${scaleRing})`;
+        
+        // Only update class name when hover state actually changes to avoid layout thrashing
+        if (lastClassHoverRef.current !== isHoveredRef.current) {
+          lastClassHoverRef.current = isHoveredRef.current;
+          if (isHoveredRef.current) {
+            ringRef.current.className = 'fixed top-0 left-0 w-9 h-9 rounded-full border border-cyan-400/80 bg-cyan-500/10 pointer-events-none z-50 transition-colors duration-150 shadow-[0_0_20px_rgba(6,182,212,0.4)] will-change-transform';
+          } else {
+            ringRef.current.className = 'fixed top-0 left-0 w-9 h-9 rounded-full border border-white/20 bg-transparent pointer-events-none z-50 transition-colors duration-150 will-change-transform';
+          }
+        }
+      }
+    };
+
+    animId = requestAnimationFrame(animate);
 
     return () => {
+      cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
     };
   }, []);
 
-  // Smooth ring follow effect with requestAnimationFrame
-  useEffect(() => {
-    let animId: number;
-    const follow = () => {
-      setRingPosition((prev) => ({
-        x: prev.x + (position.x - prev.x) * 0.18,
-        y: prev.y + (position.y - prev.y) * 0.18,
-      }));
-      animId = requestAnimationFrame(follow);
-    };
-    animId = requestAnimationFrame(follow);
-    return () => cancelAnimationFrame(animId);
-  }, [position]);
+  if (isTouch) return null;
 
   return (
     <>
       {/* Center Precision Dot */}
       <div
-        className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-50 transition-transform duration-75 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_#06b6d4]"
-        style={{
-          transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${
-            isClicked ? 0.6 : isHovered ? 1.5 : 1
-          })`,
-        }}
+        ref={dotRef}
+        className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-50 shadow-[0_0_10px_#06b6d4] will-change-transform"
+        style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
       {/* Follower Holographic Ring */}
       <div
-        className={`fixed top-0 left-0 w-9 h-9 rounded-full border pointer-events-none z-50 transition-all duration-300 ease-out-expo -translate-x-1/2 -translate-y-1/2 ${
-          isHovered
-            ? 'border-cyan-400/80 bg-cyan-500/10 scale-150 shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-            : 'border-white/20 bg-transparent scale-100'
-        }`}
-        style={{
-          transform: `translate3d(${ringPosition.x}px, ${ringPosition.y}px, 0) scale(${
-            isClicked ? 0.8 : isHovered ? 1.6 : 1
-          })`,
-        }}
+        ref={ringRef}
+        className="fixed top-0 left-0 w-9 h-9 rounded-full border border-white/20 bg-transparent pointer-events-none z-50 will-change-transform"
+        style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
     </>
   );
 };
+

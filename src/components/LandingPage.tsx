@@ -9,7 +9,6 @@ interface LandingPageProps {
   onOpenTerminal: () => void;
   onOpenSpecsModal: () => void;
   onOpenContactModal: () => void;
-  targetEmail?: string;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
@@ -19,7 +18,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenTerminal,
   onOpenSpecsModal,
   onOpenContactModal,
-  targetEmail = 'boboike600@gmail.com',
 }) => {
   // Booking Form State
   const [email, setEmail] = useState('');
@@ -50,7 +48,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     };
 
     try {
-      const response = await fetch('https://formspree.io/f/xykronad', {
+      const apiEndpoint = (import.meta as any).env?.VITE_API_URL 
+        ? `${(import.meta as any).env.VITE_API_URL.replace(/\/$/, '')}/api/transmit-brief` 
+        : '/api/transmit-brief';
+
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,22 +61,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         body: JSON.stringify(payload),
       });
 
-      if (response.ok || response.status === 200) {
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success !== false) {
         setStatus('success');
         playShockwaveSound();
       } else {
-        const data = await response.json().catch(() => ({}));
-        if (data.errors && data.errors.length > 0) {
-          setErrorMessage(data.errors.map((errItem: any) => errItem.message || 'Submission error').join(', '));
-          setStatus('error');
-        } else {
-          setStatus('success');
-          playShockwaveSound();
-        }
+        setErrorMessage(data.error || 'Failed to dispatch proposal email. Please verify server connection.');
+        setStatus('error');
       }
-    } catch {
-      setStatus('success');
-      playShockwaveSound();
+    } catch (err: any) {
+      setErrorMessage(err?.message || 'Network error transmitting proposal to server.');
+      setStatus('error');
     }
   };
 
@@ -109,45 +107,49 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">NOBLE TECH</span>
           </h1>
 
-          <p className="text-xs sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-space uppercase tracking-wide">
-            WE DO NOT PREDICT THE FUTURE. WE MANUFACTURE ITS PHYSICAL SUBSTRATE. FEATURING REAL-TIME 3D QUANTUM PARTICLE DYNAMICS AND ASYMMETRICAL GLASS ARCHITECTURE.
+          <p className="font-unbounded font-bold text-sm sm:text-base md:text-lg text-cyan-300 tracking-wider uppercase pt-1">
+            Innovative Web Solutions Engineered for Global Impact.
+          </p>
+
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-space">
+            At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
           </p>
 
           <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <button
               onClick={() => {
                 playClickSound();
-                playShockwaveSound();
+                if (onGoToAbout) onGoToAbout();
               }}
               onMouseEnter={playHoverSound}
               className="flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-unbounded font-black text-xs uppercase tracking-widest shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:shadow-[0_0_40px_rgba(6,182,212,0.8)] active:scale-95 transition-all w-full sm:w-auto"
             >
-              <Zap size={18} className="fill-current" />
-              <span>INITIALIZE SHOCKWAVE</span>
+              <Shield size={18} className="fill-current" />
+              <span>ABOUT</span>
             </button>
 
             <button
               onClick={() => {
                 playClickSound();
-                onOpenSpecsModal();
+                onGoToProjects();
               }}
               onMouseEnter={playHoverSound}
               className="flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/40 text-amber-300 font-unbounded font-bold text-xs uppercase tracking-widest active:scale-95 transition-all w-full sm:w-auto"
             >
               <Compass size={16} />
-              <span>SPECIFICATION DECK</span>
+              <span>PROJECTS</span>
             </button>
 
             <button
               onClick={() => {
                 playClickSound();
-                onOpenContactModal();
+                onGoToQuantumLab();
               }}
               onMouseEnter={playHoverSound}
-              className="flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-unbounded font-bold text-xs uppercase tracking-widest active:scale-95 transition-all w-full sm:w-auto"
+              className="flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-unbounded font-bold text-xs uppercase tracking-widest active:scale-95 transition-all w-full sm:w-auto cursor-pointer shadow-[0_0_20px_rgba(6,182,212,0.3)]"
             >
-              <Mail size={16} className="text-cyan-400" />
-              <span>PROJECT BRIEF</span>
+              <Cpu size={16} className="text-cyan-400 animate-pulse" />
+              <span>ANALYSE THIS WEBSITE</span>
             </button>
           </div>
 
@@ -190,11 +192,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
           <div className="pt-4 flex flex-col sm:flex-row gap-3">
             <button
-              onClick={onOpenSpecsModal}
+              onClick={() => {
+                playClickSound();
+                onGoToProjects();
+              }}
               className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 font-bold text-xs uppercase transition-all w-full sm:w-auto"
             >
               <Compass size={16} />
-              <span>SPECIFICATION DECK</span>
+              <span>PROJECTS</span>
             </button>
             <button
               onClick={onOpenTerminal}
@@ -278,7 +283,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </h2>
           </div>
           <p className="text-xs text-slate-400 max-w-md">
-            Directly transmits encrypted brief payload to <strong className="text-cyan-300 font-mono break-all">{targetEmail}</strong>.
+            Directly transmits encrypted brief payload to our engineering team.
           </p>
         </div>
 
@@ -289,7 +294,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
             <h3 className="font-unbounded font-black text-lg sm:text-xl text-white">BRIEF DELIVERED</h3>
             <p className="text-xs text-slate-300 max-w-md leading-relaxed">
-              Your inquiry has been encrypted and routed to <strong className="text-cyan-300 break-all">{targetEmail}</strong>. Our senior quantum engineers will initiate contact within 24 hours.
+              Your inquiry has been encrypted and routed to our team. Our engineers will initiate contact within 24 hours.
             </p>
             <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-emerald-300 bg-emerald-950/40 px-4 py-2 rounded-xl border border-emerald-500/30">
               <Lock size={14} />

@@ -6,13 +6,11 @@ import { playClickSound, playHoverSound, playShockwaveSound } from '../utils/aud
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
-  targetEmail?: string;
 }
 
 export const ContactModal: React.FC<ContactModalProps> = ({
   isOpen,
   onClose,
-  targetEmail = 'boboike600@gmail.com',
 }) => {
   const [email, setEmail] = useState('');
   const [budget, setBudget] = useState('$50,000 - $100,000');

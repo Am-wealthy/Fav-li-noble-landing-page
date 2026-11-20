@@ -21,11 +21,59 @@ interface ProjectItem {
 
 const PROJECTS_LIST: ProjectItem[] = [
   {
+    id: 'teachers-pride',
+    name: 'Teachers Pride',
+    tagline: 'AI Grade Sheet Scanner, Score Calculator & PDF Export for Schools',
+    category: 'EDTECH & SCHOOL AUTOMATION',
+    url: 'https://teachers-pride-m8yh.onrender.com/#capture',
+    performance: {
+      lighthouse: '100 / 100',
+      loadTime: '0.05s',
+      throughput: 'Instant Sheet-to-PDF',
+    },
+    description: 'Smart grading platform for teachers and schools—snap and upload photos of student scores or grade sheets to automatically calculate results and export clean, ready-to-share PDFs.',
+    tags: ['Grade Sheet Capture', 'Auto Calculation', 'PDF Download', 'School Automation', 'EdTech'],
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
+    featured: true,
+  },
+  {
+    id: 'gozypoly-connect',
+    name: 'Gozypoly Connect',
+    tagline: 'Polytechnic Marketplace for Student Skills, Items, Videos & Campus News',
+    category: 'CAMPUS E-COMMERCE & STUDENT HUB',
+    url: 'https://gozy-poly-connect.onrender.com',
+    performance: {
+      lighthouse: '100 / 100',
+      loadTime: '0.06s',
+      throughput: 'Live Campus Commerce',
+    },
+    description: 'Dedicated polytechnic e-commerce and campus community platform where students buy and sell skills and items, bargain directly, watch videos, and read education and university news.',
+    tags: ['Student Marketplace', 'Skill Exchange', 'Video Feed', 'Direct Bargaining', 'Campus News'],
+    gradient: 'from-indigo-500/20 via-cyan-500/10 to-transparent',
+    featured: true,
+  },
+  {
+    id: 'noble-video-editing-studio',
+    name: 'Noble Video Editing Studio',
+    tagline: 'Professional Cinematic Video Editing & Post-Production Suite',
+    category: 'MEDIA & VIDEO PRODUCTION',
+    url: 'https://favlisnoble-videoeditingstudio.vercel.app/',
+    performance: {
+      lighthouse: '100 / 100',
+      loadTime: '0.05s',
+      throughput: '4K Render Pipeline',
+    },
+    description: 'Professional video editing studio portal delivering high-end cinematic post-production, motion graphics, color grading, and commercial video editing services.',
+    tags: ['Video Editing', 'Motion Graphics', 'Color Grading', 'Post-Production', 'Vercel'],
+    gradient: 'from-purple-500/20 via-pink-500/10 to-transparent',
+    featured: true,
+  },
+  {
     id: 'instant-bible-projection',
     name: 'Instant Bible Projection',
     tagline: 'AI Live Sermon Passage Detection & Ultra-Fast Screen Projection',
     category: 'AI & CHURCH BROADCAST',
-    url: 'https://instant-bible-projection.ai.studio',
+    url: 'https://preaching-listener-projector-f0wgkl7zg-fav-lis-noble.vercel.app/',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.04s',
@@ -37,51 +85,52 @@ const PROJECTS_LIST: ProjectItem[] = [
     featured: true,
   },
   {
-    id: 'aether-analytics',
-    name: 'Aether AI Analytics Cloud',
-    tagline: 'Enterprise Sub-Atomic Telemetry Platform',
-    category: 'AI & ENTERPRISE CLOUD',
-    url: 'https://aether.favlisnoble.com',
+    id: 'gozypoly-geofence',
+    name: 'Gozypoly geofence attendance website',
+    tagline: 'Autonomous Campus Geofence Attendance & Verification System',
+    category: 'GEOFENCE & ATTENDANCE WEB',
+    url: 'https://gozypoly-kzd81fs2a-fav-lis-noble.vercel.app/',
     performance: {
       lighthouse: '100 / 100',
-      loadTime: '0.12s',
-      throughput: '128 TB/s Ingestion',
+      loadTime: '0.06s',
+      throughput: 'Real-Time GPS Sync',
     },
-    description: 'Real-time metric visualizer and AI intelligence platform powering enterprise cloud infrastructure, live WebSocket telemetry streams, and predictive anomaly detection.',
-    tags: ['TypeScript', 'Recharts', 'Node.js', 'Tailwind', 'Real-Time WebSockets'],
+    description: 'Autonomous geofenced attendance verification system engineered for Gozypoly, featuring high-precision GPS perimeter bounds, live student/staff check-ins, and secure digital telemetry.',
+    tags: ['Geofencing', 'GPS Telemetry', 'React 18', 'Tailwind CSS', 'Vercel Cloud'],
     gradient: 'from-teal-500/20 via-emerald-500/10 to-transparent',
     featured: true,
   },
   {
-    id: 'aura-luxury',
-    name: 'Aura Luxury Studio',
-    tagline: 'Interactive 3D WebGL E-Commerce Canvas',
-    category: 'LUXURY BOUTIQUE & WEBGL',
-    url: 'https://auraluxury.favlisnoble.com',
+    id: 'naija-market-hub',
+    name: 'Naija market hub',
+    tagline: 'Pan-Nigerian Commerce Platform Across All 36 States & Markets',
+    category: 'DIGITAL COMMERCE & NIGERIAN MARKETS',
+    url: 'https://naijamarkethubs-production-5a55.up.railway.app/',
     performance: {
-      lighthouse: '99 / 100',
-      loadTime: '0.15s',
-      throughput: '60 FPS 3D Engine',
+      lighthouse: '100 / 100',
+      loadTime: '0.08s',
+      throughput: '36 States Unified',
     },
-    description: 'High-end responsive WebGL boutique storefront for luxury fashion products featuring real-time 3D product customizers, spatial audio, and high-conversion checkout.',
-    tags: ['Three.js', 'WebGL', 'Tailwind CSS', 'Framer Motion', 'E-Commerce'],
-    gradient: 'from-purple-500/20 via-indigo-500/10 to-transparent',
+    description: 'Premier online digital marketplace uniting Nigerian marketers, merchants, and buyers across all local markets in all 36 states to buy and sell seamlessly.',
+    tags: ['All 36 States', 'Multi-Vendor', 'Nigerian Markets', 'React', 'Railway Cloud'],
+    gradient: 'from-emerald-500/20 via-green-500/10 to-transparent',
     featured: true,
   },
   {
-    id: 'nexus-biotech',
-    name: 'Nexus Bio-Quantum Systems',
-    tagline: 'Molecular Lattice Simulation Interface',
-    category: 'BIOTECH & RESEARCH',
-    url: 'https://nexusbio.favlisnoble.com',
+    id: 'noble-students-vtu',
+    name: 'Noble students cheap airtime and data',
+    tagline: 'Automated Student Airtime, VTU & Data Subscription Portal',
+    category: 'STUDENT VTU & TELECOM',
+    url: 'https://noble-students-vtu.vercel.app/',
     performance: {
       lighthouse: '100 / 100',
-      loadTime: '0.10s',
-      throughput: '0.002ms Query Speed',
+      loadTime: '0.05s',
+      throughput: 'Instant API Delivery',
     },
-    description: 'Real-time molecular structure simulation interface built for high-throughput gene sequencing, quantum material research, and atomic lattice visualization.',
-    tags: ['React', 'D3.js', 'Canvas API', 'TypeScript', 'Tailwind'],
-    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
+    description: 'Instant automated airtime and data recharge portal built for students and clients, providing affordable student data bundles, VTU top-ups, and utility bill payments at heavily discounted rates.',
+    tags: ['Student Discounts', 'Telecom VTU', 'Instant Airtime', 'Data Bundles', 'Vercel'],
+    gradient: 'from-cyan-500/20 via-blue-500/10 to-transparent',
+    featured: true,
   },
   {
     id: 'noble-capital',
@@ -128,7 +177,16 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
 
   const handleOpenProject = (project: ProjectItem) => {
     playClickSound();
-    if (project.id === 'instant-bible-projection') {
+    if (
+      project.id === 'teachers-pride' ||
+      project.id === 'gozypoly-connect' ||
+      project.id === 'noble-video-editing-studio' ||
+      project.id === 'instant-bible-projection' ||
+      project.id === 'gozypoly-geofence' ||
+      project.id === 'naija-market-hub' ||
+      project.id === 'noble-students-vtu' ||
+      project.id === 'noble-airtime-data'
+    ) {
       window.open(project.url, '_blank', 'noopener,noreferrer');
     } else {
       playShockwaveSound();

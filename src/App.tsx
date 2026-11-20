@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ParticleBackground, ParticleTopology, ParticleTheme } from './components/ParticleBackground';
 import { CustomCursor } from './components/CustomCursor';
 import { IntroScreen } from './components/IntroScreen';
@@ -23,10 +23,25 @@ export default function App() {
 
   // Three.js Particle Engine States
   const [topology, setTopology] = useState<ParticleTopology>('torus');
-  const [theme, setTheme] = useState<ParticleTheme>('gold');
-  const [density, setDensity] = useState<number>(4500);
+  const [theme, setTheme] = useState<ParticleTheme>('cyber');
+  const [density, setDensity] = useState<number>(() => typeof window !== 'undefined' && window.innerWidth < 768 ? 1200 : 2200);
   const [speed, setSpeed] = useState<number>(1.0);
   const [shockwaveTrigger, setShockwaveTrigger] = useState<number>(0);
+
+  // Auto-rotate Chromatic Palette Theme every 12 seconds
+  useEffect(() => {
+    const paletteThemes: ParticleTheme[] = ['cyber', 'gold', 'emerald', 'space'];
+    const interval = setInterval(() => {
+      if (document.hidden) return;
+      setTheme((currentTheme) => {
+        const currentIndex = paletteThemes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % paletteThemes.length;
+        return paletteThemes[nextIndex];
+      });
+    }, 12000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Audio and Modals States
   const [audioEnabled, setAudioEnabled] = useState<boolean>(false);
@@ -63,14 +78,15 @@ export default function App() {
         onCanvasClick={handleTriggerShockwave}
       />
 
-      {/* Immediate Load Intro Overlay */}
-      {showIntro ? (
+      {/* Intro Overlay */}
+      {showIntro && (
         <IntroScreen onComplete={() => setShowIntro(false)} />
-      ) : (
-        /* Main Content Layout Overlay (shown after intro opens) */
-        <div className="relative z-10 flex flex-col min-h-screen animate-fadeIn duration-500">
-          
-          {/* Navigation HUD */}
+      )}
+
+      {/* Main Content Layout Overlay (Pre-rendered for ultra-fast <1s load) */}
+      <div className={`relative z-10 flex flex-col min-h-screen transition-opacity duration-300 ${showIntro ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        
+        {/* Navigation HUD */}
           <HeaderHUD
             topology={topology}
             theme={theme}
@@ -94,7 +110,6 @@ export default function App() {
                 onOpenTerminal={() => setIsTerminalOpen(true)}
                 onOpenSpecsModal={() => setIsSpecsOpen(true)}
                 onOpenContactModal={() => setIsContactOpen(true)}
-                targetEmail="boboike600@gmail.com"
               />
             )}
 
@@ -143,33 +158,37 @@ export default function App() {
           />
 
         </div>
-      )}
 
       {/* Terminal Drawer Overlay */}
-      <TerminalDrawer
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-        topology={topology}
-        setTopology={setTopology}
-        theme={theme}
-        setTheme={setTheme}
-        onTriggerShockwave={handleTriggerShockwave}
-        audioEnabled={audioEnabled}
-        onToggleAudio={handleToggleAudio}
-      />
+      {isTerminalOpen && (
+        <TerminalDrawer
+          isOpen={isTerminalOpen}
+          onClose={() => setIsTerminalOpen(false)}
+          topology={topology}
+          setTopology={setTopology}
+          theme={theme}
+          setTheme={setTheme}
+          onTriggerShockwave={handleTriggerShockwave}
+          audioEnabled={audioEnabled}
+          onToggleAudio={handleToggleAudio}
+        />
+      )}
 
       {/* Specification Deck Modal Overlay */}
-      <SpecModal
-        isOpen={isSpecsOpen}
-        onClose={() => setIsSpecsOpen(false)}
-      />
+      {isSpecsOpen && (
+        <SpecModal
+          isOpen={isSpecsOpen}
+          onClose={() => setIsSpecsOpen(false)}
+        />
+      )}
 
       {/* Contact Project Brief Modal */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-        targetEmail="boboike600@gmail.com"
-      />
+      {isContactOpen && (
+        <ContactModal
+          isOpen={isContactOpen}
+          onClose={() => setIsContactOpen(false)}
+        />
+      )}
 
       {/* Floating GSAP WhatsApp Chat Widget - Only visible after intro */}
       {!showIntro && <WhatsAppWidget phoneNumber="2348101580255" companyName="Fav Li$ Noble Tech" />}

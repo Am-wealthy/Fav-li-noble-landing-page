@@ -143,7 +143,7 @@ export const BentoGrid: React.FC<BentoGridProps> = ({
           {/* Heavy Experimental Typography Banner */}
           <div className="my-6 sm:my-8 z-10 space-y-3">
             <div className="text-[10px] sm:text-xs font-space font-bold tracking-[0.25em] text-cyan-400 uppercase">
-              NEXT-GEN QUANTUM INFRASTRUCTURE
+              INNOVATIVE WEB SOLUTIONS ENGINEERED FOR GLOBAL IMPACT
             </div>
 
             <h1 className="font-unbounded font-black text-3xl sm:text-5xl md:text-6xl xl:text-7xl tracking-tighter text-white leading-[0.95] uppercase drop-shadow-2xl break-words">
@@ -153,8 +153,8 @@ export const BentoGrid: React.FC<BentoGridProps> = ({
               </span>
             </h1>
 
-            <p className="font-space text-xs sm:text-sm md:text-base text-slate-300 max-w-xl leading-relaxed pt-2">
-              WE DO NOT PREDICT THE FUTURE. WE MANUFACTURE ITS PHYSICAL SUBSTRATE. FEATURING REAL-TIME 3D QUANTUM PARTICLE DYNAMICS AND ASYMMETRICAL GLASS ARCHITECTURE.
+            <p className="font-space text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl leading-relaxed pt-2">
+              At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
             </p>
           </div>
 
@@ -188,13 +188,13 @@ export const BentoGrid: React.FC<BentoGridProps> = ({
               <button
                 onClick={() => {
                   playClickSound();
-                  onOpenContactModal();
+                  if (onTriggerShockwave) onTriggerShockwave();
                 }}
                 onMouseEnter={playHoverSound}
-                className="flex items-center justify-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 font-space font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 active:scale-95"
+                className="flex items-center justify-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 font-space font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 active:scale-95 cursor-pointer"
               >
                 <Sparkles size={15} className="text-emerald-400 animate-pulse" />
-                <span>PROJECT BRIEF</span>
+                <span>ANALYSE THIS WEBSITE</span>
               </button>
             </div>
 

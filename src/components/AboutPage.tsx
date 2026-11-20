@@ -2,9 +2,9 @@ import React from 'react';
 import { Shield, CheckCircle2, Cpu, Globe, Zap, Compass, Mail, Terminal, Award, Users, Activity, Sparkles } from 'lucide-react';
 import { playClickSound, playHoverSound } from '../utils/audio';
 
-import nobleCodesImg from '../assets/images/noble_codes_official.jpg';
-import lishanNobleImg from '../assets/images/lishan_noble_official.jpg';
-import jaxenDollarImg from '../assets/images/jaxen_dollar_official.jpg';
+const nobleCodesImg = 'https://i.postimg.cc/QHP7WzLG/img-2-1785254405271.jpg';
+const lishanNobleImg = 'https://i.postimg.cc/CzdD5g20/img-5-1785254570606.jpg';
+const jaxenDollarImg = 'https://i.postimg.cc/QHP7WzLZ/img-4-1785254561774.jpg';
 
 interface AboutPageProps {
   onOpenContactModal: () => void;
@@ -36,7 +36,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         </h1>
 
         <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          Fav Li$ Noble Tech Co. is an apex hardware and software architecture company. We eliminate silicon thermal boundaries, manifest unchained quantum resonance substrates, and deliver zero-latency web platforms.
+          At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
         </p>
 
         {/* Quick Metrics Bar */}
@@ -73,12 +73,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <span>THE NOBLE MANIFESTO</span>
             </div>
 
-            <h2 className="font-unbounded font-black text-2xl text-white leading-snug">
-              "WE DO NOT PREDICT THE FUTURE. WE MANUFACTURE ITS PHYSICAL SUBSTRATE."
+            <h2 className="font-unbounded font-black text-xl sm:text-2xl text-white leading-snug">
+              "INNOVATIVE WEB SOLUTIONS ENGINEERED FOR GLOBAL IMPACT."
             </h2>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Founded by Noble Codes, Lady Lishan Noble, and Jaxen $, Fav Li$ Noble Tech was born out of a refusal to accept traditional silicon limitations. From zero-point energy harvesting to hardware-level quantum encryption and ultra-responsive web design, our engineered solutions power the next era of computing.
+              At Fav Li$ Noble Tech Company, we don't just build websites—we engineer powerful digital solutions designed to solve real-world problems. Whether you are looking to scale your business, streamline operations, or build a seamless online presence, our custom-developed web applications combine cutting-edge technology with intuitive design to drive results.
             </p>
 
             <div className="space-y-3 pt-2 text-xs text-slate-200">
@@ -133,6 +133,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 <img
                   src={nobleCodesImg}
                   alt="Noble Codes"
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-cyan-400/50 shadow-[0_0_20px_rgba(6,182,212,0.3)] shrink-0"
                 />
@@ -150,6 +152,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 <img
                   src={lishanNobleImg}
                   alt="Lady Lishan Noble"
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-emerald-400/50 shadow-[0_0_20px_rgba(16,185,129,0.3)] shrink-0"
                 />
@@ -167,6 +171,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 <img
                   src={jaxenDollarImg}
                   alt="Jaxen $"
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.3)] shrink-0"
                 />

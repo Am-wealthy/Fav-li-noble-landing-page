@@ -1,5 +1,5 @@
 import React from 'react';
-import officialLogo from '../assets/images/official_logo.png';
+import { Logo } from './Logo';
 import { ArrowUp, Shield, Terminal, Compass, Mail, Globe, Sparkles } from 'lucide-react';
 import { playClickSound } from '../utils/audio';
 
@@ -29,11 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border-b border-white/10 pb-8">
           <div>
             <div className="flex items-center gap-3">
-              <img
-                src={officialLogo}
-                alt="Fav Li$ Noble Logo"
-                className="w-10 h-10 object-cover rounded-xl border border-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"
-              />
+              <Logo className="w-10 h-10 sm:w-11 sm:h-11" showPulse={true} />
               <div className="flex items-center gap-2">
                 <h2 className="font-unbounded font-black text-xl sm:text-2xl text-white tracking-wider uppercase">
                   FAV LI$ <span className="text-cyan-400">NOBLE</span> TECH CO.

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, Zap, Lock } from 'lucide-react';
+import { Logo } from './Logo';
 import { playChargePulse, playShockwaveSound, initAudio } from '../utils/audio';
 
 interface IntroScreenProps {
@@ -20,6 +21,8 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+  const progressRef = useRef(0);
+
   // Handle hold progress loop
   useEffect(() => {
     let active = true;
@@ -28,50 +31,39 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
       if (!active) return;
 
       if (isHolding && !isExploding) {
-        setProgress((prev) => {
-          const next = prev + 2.5; // Takes ~1 second to reach 100%
-          
-          // Audio feedback pulse every 70ms
-          const now = Date.now();
-          if (now - lastAudioTime.current > 70) {
-            playChargePulse(next);
-            lastAudioTime.current = now;
-          }
+        const next = Math.min(100, progressRef.current + 2.5);
+        progressRef.current = next;
+        setProgress(next);
 
-          // Haptic vibration feedback
-          if (navigator.vibrate && next % 8 < 2.5) {
+        // Audio feedback pulse every 80ms
+        const now = Date.now();
+        if (now - lastAudioTime.current > 80) {
+          playChargePulse(next);
+          lastAudioTime.current = now;
+        }
+
+        if (next >= 100) {
+          setIsExploding(true);
+          playShockwaveSound();
+          if (navigator.vibrate) {
             try {
-              navigator.vibrate(15 + Math.floor(next / 5));
-            } catch (e) {
-              // Ignore if not supported
-            }
+              navigator.vibrate([100, 50, 200]);
+            } catch (e) {}
           }
-
-          if (next >= 100) {
-            setIsExploding(true);
-            playShockwaveSound();
-            if (navigator.vibrate) {
-              try {
-                navigator.vibrate([100, 50, 200]);
-              } catch (e) {}
-            }
-            setTimeout(() => {
-              onComplete();
-            }, 600);
-            return 100;
-          }
-          return next;
-        });
+          setTimeout(() => {
+            onComplete();
+          }, 500);
+          return;
+        }
         requestRef.current = requestAnimationFrame(update);
       } else if (!isHolding && !isExploding) {
-        // Rapid decay if released early
-        setProgress((prev) => {
-          if (prev <= 0) return 0;
-          const next = Math.max(0, prev - 6);
-          return next;
-        });
-        if (progress > 0) {
-          requestRef.current = requestAnimationFrame(update);
+        if (progressRef.current > 0) {
+          const next = Math.max(0, progressRef.current - 6);
+          progressRef.current = next;
+          setProgress(next);
+          if (next > 0) {
+            requestRef.current = requestAnimationFrame(update);
+          }
         }
       }
     };
@@ -82,7 +74,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
       active = false;
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [isHolding, isExploding, onComplete, progress]);
+  }, [isHolding, isExploding, onComplete]);
 
   const handleStartHold = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
@@ -110,8 +102,21 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] bg-gradient-to-r from-cyan-500/20 via-teal-400/10 to-indigo-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
       {/* Main Celestial View Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center space-y-6 my-auto pt-10">
+      <div className="relative z-10 flex flex-col items-center justify-center space-y-6 my-auto pt-6">
         
+        {/* Brand Logo Header */}
+        <div className="flex items-center gap-3 bg-slate-950/80 px-4 py-2 rounded-2xl border border-cyan-500/30 backdrop-blur-md shadow-[0_0_25px_rgba(6,182,212,0.3)] animate-fadeIn">
+          <Logo className="w-9 h-9" showPulse={true} />
+          <div className="text-left">
+            <h2 className="font-unbounded font-black text-xs sm:text-sm text-white tracking-wider uppercase">
+              FAV LI$ <span className="text-cyan-400">NOBLE</span>
+            </h2>
+            <p className="text-[9px] font-mono text-cyan-300/80 uppercase tracking-widest">
+              QUANTUM SYSTEM // ONLINE
+            </p>
+          </div>
+        </div>
+
         {/* The Distant Glowing Moon Circle */}
         <div
           onMouseDown={handleStartHold}
@@ -188,7 +193,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
               ) : (
                 <span className="text-[9px] font-mono text-cyan-300/80 uppercase tracking-wider flex items-center justify-center gap-1 group-hover:text-cyan-200 transition-colors">
                   <Lock size={10} />
-                  HOLD MOON
+                  HOLD OR CLICK
                 </span>
               )}
             </div>
@@ -196,15 +201,24 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
           </div>
         </div>
 
-        {/* User Interaction Instructions */}
-        <div className="text-center space-y-1 max-w-xs pt-2">
+        {/* User Interaction & Instant Enter Buttons */}
+        <div className="text-center space-y-3 max-w-xs pt-1">
           <p className="text-[11px] font-mono text-cyan-300 uppercase tracking-widest flex items-center justify-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            <span>CLICK & HOLD THE CELESTIAL MOON</span>
+            <span>HOLD MOON OR TAP TO ENTER</span>
           </p>
-          <p className="text-[10px] text-slate-400 font-space">
-            Hold to charge vibration pulse & open portal
-          </p>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              playShockwaveSound();
+              onComplete();
+            }}
+            className="w-full py-2.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-unbounded font-black text-xs uppercase tracking-widest shadow-[0_0_25px_rgba(6,182,212,0.6)] hover:shadow-[0_0_35px_rgba(6,182,212,0.9)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Zap size={14} className="fill-current shrink-0" />
+            <span className="text-[11px] sm:text-xs">WELCOME TO FAV LI$ NOBLE TECH COMPANY</span>
+          </button>
         </div>
 
       </div>

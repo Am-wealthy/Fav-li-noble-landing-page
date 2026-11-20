@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import officialLogo from '../assets/images/official_logo.png';
+import { Logo } from './Logo';
 import { ParticleTopology, ParticleTheme } from './ParticleBackground';
 
 interface HeaderHUDProps {
@@ -61,15 +61,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         {/* Brand & System Status */}
         <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-3">
-            <div className="relative shrink-0">
-              <img
-                src={officialLogo}
-                alt="Fav Li$ Noble Logo"
-                className="w-10 h-10 sm:w-11 sm:h-11 object-cover rounded-xl border border-cyan-400/50 shadow-[0_0_20px_rgba(6,182,212,0.4)]"
-              />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full" />
-            </div>
+            <Logo className="w-10 h-10 sm:w-11 sm:h-11 cursor-pointer" showPulse={true} />
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <h1 className="font-unbounded font-black text-xs sm:text-sm md:text-base tracking-wider text-white uppercase whitespace-nowrap">
