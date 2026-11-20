@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { ExternalLink, Sparkles, Zap, Shield, Globe, Cpu, ArrowUpRight, CheckCircle2, Star, Activity, Server, Lock, AlertTriangle, X } from 'lucide-react';
+import { ExternalLink, Sparkles, Zap, Cpu, ArrowUpRight, Star, Lock, AlertTriangle, X, Globe } from 'lucide-react';
 import { playClickSound, playHoverSound, playShockwaveSound } from '../utils/audio';
+import teachersPrideImg from '../assets/images/teachers_pride_screenshot_1795206297145.jpg';
+import gozypolyConnectImg from '../assets/images/gozypoly_connect_screenshot_1795206297565.jpg';
+import videoStudioImg from '../assets/images/video_studio_screenshot_1795206297200.jpg';
+import bibleProjectionImg from '../assets/images/bible_projection_screenshot_1795206297256.jpg';
+import gozypolyGeofenceImg from '../assets/images/gozypoly_geofence_screenshot_1795206297050.jpg';
+import naijaMarketImg from '../assets/images/naija_market_screenshot_1795206297338.jpg';
+import nobleVtuImg from '../assets/images/noble_vtu_screenshot_1795206297444.jpg';
+import nobleCapitalImg from '../assets/images/noble_capital_screenshot_1795206296692.jpg';
+import zeroMeshImg from '../assets/images/zero_mesh_screenshot_1795206297695.jpg';
 
 interface ProjectItem {
   id: string;
@@ -8,6 +17,8 @@ interface ProjectItem {
   tagline: string;
   category: string;
   url: string;
+  screenshot: string;
+  screenshotAlt: string;
   performance: {
     lighthouse: string;
     loadTime: string;
@@ -26,6 +37,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'AI Grade Sheet Scanner, Score Calculator & PDF Export for Schools',
     category: 'EDTECH & SCHOOL AUTOMATION',
     url: 'https://teachers-pride-m8yh.onrender.com/#capture',
+    screenshot: teachersPrideImg,
+    screenshotAlt: 'Teachers Pride website screenshot showing student score sheet upload, automated grade calculations, and PDF export dashboard',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.05s',
@@ -42,6 +55,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Polytechnic Marketplace for Student Skills, Items, Videos & Campus News',
     category: 'CAMPUS E-COMMERCE & STUDENT HUB',
     url: 'https://gozy-poly-connect.onrender.com',
+    screenshot: gozypolyConnectImg,
+    screenshotAlt: 'Gozypoly Connect website screenshot featuring student skill marketplace, bargain offers, campus video feed, and university news',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.06s',
@@ -58,6 +73,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Professional Cinematic Video Editing & Post-Production Suite',
     category: 'MEDIA & VIDEO PRODUCTION',
     url: 'https://favlisnoble-videoeditingstudio.vercel.app/',
+    screenshot: videoStudioImg,
+    screenshotAlt: 'Noble Video Editing Studio website screenshot displaying 4K showreel player, color grading, and post-production services',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.05s',
@@ -74,6 +91,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'AI Live Sermon Passage Detection & Ultra-Fast Screen Projection',
     category: 'AI & CHURCH BROADCAST',
     url: 'https://preaching-listener-projector-f0wgkl7zg-fav-lis-noble.vercel.app/',
+    screenshot: bibleProjectionImg,
+    screenshotAlt: 'Instant Bible Projection web app screenshot showing live AI audio listening waveform and instant projected scripture screen',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.04s',
@@ -90,6 +109,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Autonomous Campus Geofence Attendance & Verification System',
     category: 'GEOFENCE & ATTENDANCE WEB',
     url: 'https://gozypoly-kzd81fs2a-fav-lis-noble.vercel.app/',
+    screenshot: gozypolyGeofenceImg,
+    screenshotAlt: 'Gozypoly Geofence attendance website screenshot displaying interactive campus GPS perimeter map and verified student check-in logs',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.06s',
@@ -106,6 +127,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Pan-Nigerian Commerce Platform Across All 36 States & Markets',
     category: 'DIGITAL COMMERCE & NIGERIAN MARKETS',
     url: 'https://naijamarkethubs-production-5a55.up.railway.app/',
+    screenshot: naijaMarketImg,
+    screenshotAlt: 'Naija Market Hub website screenshot showing 36 Nigerian states marketplace selector, merchant storefronts, and top deals',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.08s',
@@ -122,6 +145,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Automated Student Airtime, VTU & Data Subscription Portal',
     category: 'STUDENT VTU & TELECOM',
     url: 'https://noble-students-vtu.vercel.app/',
+    screenshot: nobleVtuImg,
+    screenshotAlt: 'Noble Students VTU website screenshot showing discounted student data bundles and instant airtime recharge portal',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.05s',
@@ -138,6 +163,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'High-Frequency Algorithmic Trading Suite',
     category: 'FINANCIAL ASSET MANAGEMENT',
     url: 'https://capital.favlisnoble.com',
+    screenshot: nobleCapitalImg,
+    screenshotAlt: 'Noble Quantum Capital web dashboard screenshot showing live algorithmic candlestick trading charts and order book',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.05s',
@@ -153,6 +180,8 @@ const PROJECTS_LIST: ProjectItem[] = [
     tagline: 'Decentralized Node Network Control Center',
     category: 'DECENTRALIZED INFRASTRUCTURE',
     url: 'https://mesh.favlisnoble.com',
+    screenshot: zeroMeshImg,
+    screenshotAlt: 'Zero-Point Global Mesh HUD website screenshot showing global server nodes across Zurich, Tokyo, Singapore, Silicon Valley, and Reykjavik',
     performance: {
       lighthouse: '100 / 100',
       loadTime: '0.09s',
@@ -174,6 +203,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
   onGoToQuantumLab,
 }) => {
   const [restrictedProject, setRestrictedProject] = useState<ProjectItem | null>(null);
+  const [failedScreenshots, setFailedScreenshots] = useState<Record<string, boolean>>({});
+
+  const handleScreenshotError = (id: string) => {
+    setFailedScreenshots((prev) => ({ ...prev, [id]: true }));
+  };
 
   const handleOpenProject = (project: ProjectItem) => {
     playClickSound();
@@ -324,13 +358,56 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROJECTS_LIST.map((project) => (
+          {PROJECTS_LIST.map((project) => {
+            let hostLabel = project.url;
+            try {
+              hostLabel = new URL(project.url).hostname;
+            } catch {
+              hostLabel = project.url;
+            }
+
+            return (
             <div
               key={project.id}
               onClick={() => handleOpenProject(project)}
               onMouseEnter={playHoverSound}
-              className={`group relative p-6 rounded-3xl bg-[#080c16] border border-white/10 hover:border-cyan-400/50 transition-all duration-300 flex flex-col justify-between space-y-6 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(6,182,212,0.2)] bg-gradient-to-b ${project.gradient}`}
+              className={`group relative rounded-3xl bg-[#080c16] border border-white/10 hover:border-cyan-400/50 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_40px_rgba(6,182,212,0.2)] bg-gradient-to-b ${project.gradient}`}
             >
+              {/* Website Screenshot Preview Frame */}
+              <div className="border-b border-white/10 bg-[#050812]">
+                <div className="flex items-center justify-between px-3.5 py-2 border-b border-white/10 bg-black/40">
+                  <div className="flex items-center gap-1.5" aria-hidden="true">
+                    <span className="w-2 h-2 rounded-full bg-rose-400/70" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400/70" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-400/70" />
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-400 truncate max-w-[190px]">
+                    {hostLabel}
+                  </span>
+                </div>
+                <div className="relative aspect-video w-full overflow-hidden bg-[#040710]">
+                  {!failedScreenshots[project.id] ? (
+                    <img
+                      src={project.screenshot}
+                      alt={project.screenshotAlt}
+                      loading="lazy"
+                      decoding="async"
+                      referrerPolicy="no-referrer"
+                      onError={() => handleScreenshotError(project.id)}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-4 bg-gradient-to-br from-cyan-950/60 via-[#080d1a] to-emerald-950/40 text-cyan-300">
+                      <Globe size={24} />
+                      <span className="text-xs font-unbounded font-bold text-white text-center">
+                        {project.name}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-6 flex flex-col justify-between flex-1 space-y-6">
               <div className="space-y-4">
                 {/* Header Badge */}
                 <div className="flex items-center justify-between text-xs font-mono">
@@ -392,8 +469,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                   HTTP 200 OK
                 </span>
               </div>
+              </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
